@@ -4,18 +4,21 @@ import { useNavigate } from 'react-router-dom'
 
 const ProductPreview = () => {
     const [products, setProducts] = useState([])
-    const [checkedProducts, setCheckedProducts] = useState(new Array(products.length).fill(false))
+    const [checkedProducts, setCheckedProducts] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
       axios.get('http://localhost:8888/api/products/')
-      .then(response => setProducts(response.data))
+      .then(response => {
+        setProducts(response.data)
+        setCheckedProducts(new Array(response.data.length).fill(false))
+    })
     }, [])
 
+    console.log(checkedProducts)
     const handleCheckProducts = (i) => {
         const arr = [...checkedProducts];
         arr[i] = !arr[i];
-        console.log(arr)
         setCheckedProducts(arr);
     }
 //  HANDLE REMOVE 
@@ -67,7 +70,7 @@ const ProductPreview = () => {
     <div className='products' >
         {products.map((product, index) => (
             <div className='product-preview' key={product.SKU}  onClick={() => handleCheckProducts(index)}>
-                <input type='checkbox' className='delete-checkbox' id='delete-checkbox' checked={checkedProducts[index] } />
+                <input type='checkbox' className='delete-checkbox' id='delete-checkbox' readOnly checked={checkedProducts[index] } />
                 <p>{product.SKU}</p>
                 <p>{product.Name}</p>
                 <p>{product.Price}$</p>

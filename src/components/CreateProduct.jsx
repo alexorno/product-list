@@ -99,7 +99,7 @@ const handleSubmit = (e) => {
                 id='sku' 
                 maxLength='64' 
                 pattern='[A-Za-z0-9]+'
-                onInvalid={() => alert('In field "SKU" you can only use letters and numbers')}
+                // onInvalid={() => alert('In field "SKU" you can only use letters and numbers')}
                 required
                 className={!isSKUUnique ? `not-unique` : ''}
                 name='SKU' 
@@ -113,7 +113,7 @@ const handleSubmit = (e) => {
                 id='name'
                 required 
                 pattern='[A-Za-z0-9]+'
-                onInvalid={() => alert('In field "Name" you can only use letters and numbers')}
+                // onInvalid={() => alert('In field "Name" you can only use letters and numbers')}
                 name='name' 
                 placeholder='Name' 
                 onChange={e => handleInputChange(e)}
@@ -123,8 +123,8 @@ const handleSubmit = (e) => {
                 <label>Price ($)</label>
                 <input id='price' 
                 required 
-                pattern='[0-9]*\.[0-9]+'
-                onInvalid={() => alert('In field "Price" you can only use numbers and dot')}
+                pattern='/^(\d+(\.\d*)?)|(\.\d+))$/'
+                // onInvalid={() => alert('In field "Price" you can only use numbers and dot')}
                 name='price' 
                 placeholder='Price' 
                 onChange={e => handleInputChange(e)}
