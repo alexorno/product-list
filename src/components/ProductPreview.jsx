@@ -8,7 +8,7 @@ const ProductPreview = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      axios.get('http://productlistalexorno.000webhostapp.com/api/index.php')
+      axios.get('https://productlistalexorno.000webhostapp.com/api/index.php')
       .then(response => {
         setProducts(response.data)
         setCheckedProducts(new Array(response.data.length).fill(false))
@@ -32,7 +32,7 @@ const ProductPreview = () => {
 
         console.log(indexsId)
         if(indexsId.length > 0) {
-            axios.delete('http://productlistalexorno.000webhostapp.com/api/index.php', {data: indexsId})
+            axios.delete('https://productlistalexorno.000webhostapp.com/api/index.php', {data: indexsId})
             .then(response => {
                 console.log(response.data);
                 window.location.reload(false);
