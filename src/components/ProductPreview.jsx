@@ -8,7 +8,7 @@ const ProductPreview = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      axios.get('http://localhost:8888/api/products/')
+      axios.get('http://productlistalexorno.000webhostapp.com/api/index.php')
       .then(response => {
         setProducts(response.data)
         setCheckedProducts(new Array(response.data.length).fill(false))
@@ -32,7 +32,7 @@ const ProductPreview = () => {
 
         console.log(indexsId)
         if(indexsId.length > 0) {
-            axios.delete('http://localhost:8888/api/products/delete', {data: indexsId})
+            axios.delete('http://productlistalexorno.000webhostapp.com/api/index.php', {data: indexsId})
             .then(response => {
                 console.log(response.data);
                 window.location.reload(false);
@@ -68,7 +68,7 @@ const ProductPreview = () => {
         </div>
     </div>
     <div className='products' >
-        {products.map((product, index) => (
+        {products?.map((product, index) => (
             <div className='product-preview' key={product.SKU}  onClick={() => handleCheckProducts(index)}>
                 <input type='checkbox' className='delete-checkbox' id='delete-checkbox' readOnly checked={checkedProducts[index] } />
                 <p>{product.SKU}</p>
