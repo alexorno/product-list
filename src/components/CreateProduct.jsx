@@ -69,7 +69,7 @@ const handleSubmit = (e) => {
 
     axios.post('https://productlistalexorno.000webhostapp.com/api/index.php', input)
     .then(response => {
-        console.log(response.data)
+        console.log(response)
         if((typeof(response.data) === "string") && (response.data.slice(-5) === `'SKU'`)){
             setIsSKUUnique(false);
         }else{

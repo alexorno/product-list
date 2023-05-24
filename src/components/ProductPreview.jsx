@@ -10,6 +10,7 @@ const ProductPreview = () => {
     useEffect(() => {
       axios.get('https://productlistalexorno.000webhostapp.com/api/index.php')
       .then(response => {
+        console.log(response.data)
         setProducts(response.data)
         setCheckedProducts(new Array(response.data.length).fill(false))
     })
