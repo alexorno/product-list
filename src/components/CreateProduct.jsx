@@ -27,31 +27,35 @@ const handleSelectChange = (e) => {
     setInput(inputs => ({...inputs, [name]: value}));
 
     dvdForm.current.classList.remove('visible');
-    dvdForm.current.children[0].removeAttribute('required')
+    dvdForm.current.children[0].removeAttribute('required');
+    dvdForm.current.children[0].removeAttribute('id')
 
     bookForm.current.classList.remove('visible');
     bookForm.current.children[0].removeAttribute('required')
+    bookForm.current.children[0].removeAttribute('id')
 
     dimensionsForm.current.classList.remove('visible');
-    const collection = dimensionsForm.current.children;
-    for(let i=0; i<collection.length; i++){
-        collection[i].removeAttribute('required')
-    }
+    dimensionHeight.current.removeAttribute('required')
+    dimensionLength.current.removeAttribute('required')
+    dimensionWidth.current.removeAttribute('required')
+    
 
     switch(value){
         case 'dvd':
             dvdForm.current.classList.add('visible');
             dvdForm.current.children[0].setAttribute('required', 'required')
+            dvdForm.current.children[0].setAttribute('id', 'size')
             break;
         case 'book':
             bookForm.current.classList.add('visible');
             bookForm.current.children[0].setAttribute('required', 'required')
+            bookForm.current.children[0].setAttribute('id', 'size')
             break;
         case 'furniture':
             dimensionsForm.current.classList.add('visible');
-            for(let i=0; i<collection.length; i++){
-                collection[i].setAttribute('required', 'required')
-            }
+            dimensionHeight.current.setAttribute('required', 'required')
+            dimensionLength.current.setAttribute('required', 'required')
+            dimensionWidth.current.setAttribute('required', 'required')
             break;
 
         default:
@@ -152,15 +156,15 @@ const handleSubmit = async(e) => {
                 <div className='dimensions-form' ref={dimensionsForm} >
                     <div className='input-container'>
                         <label>Height (CM)</label>
-                        <input name='height' placeholder='height' ref={dimensionHeight} onChange={handleDimensionsChange}/>
+                        <input id='height' name='height' placeholder='height' ref={dimensionHeight} onChange={handleDimensionsChange}/>
                     </div>
                     <div className='input-container'>
                         <label>Width (CM)</label>
-                        <input name='width' placeholder='width' ref={dimensionWidth} onChange={handleDimensionsChange}/>
+                        <input id='width' name='width' placeholder='width' ref={dimensionWidth} onChange={handleDimensionsChange}/>
                     </div>
                     <div className='input-container'>
                         <label>Length (CM)</label>
-                        <input name='length' placeholder='length' ref={dimensionLength} onChange={handleDimensionsChange}/>
+                        <input id='length' name='length' placeholder='length' ref={dimensionLength} onChange={handleDimensionsChange}/>
                     </div>
                     <p>Please provide dimesions in HxWxL format in cm</p>
                 </div>
