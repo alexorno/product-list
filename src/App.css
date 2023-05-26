@@ -59,7 +59,7 @@ padding: 0 15px;
 .top-nav .buttons{
   display: flex;
   column-gap: 20px;
-  width: 30%;
+  width: 200px;
   align-items: flex-end;
   justify-content: space-between;
 }
@@ -128,6 +128,7 @@ form.create-product-form {
 
 .dvd-form p, .book-form p, .dimensions-form p{
   margin-top: 10px;
+line-height: normal;
 }
 
 .dvd-form .input-container, .book-form .input-container, .dimensions-form .input-container{
@@ -156,9 +157,27 @@ form.create-product-form {
 .input-container select{
   height: 33px;
 }
+input.not-unique{
+  background-color: rgba(251, 99, 99, 0.85);
+  overflow: auto;
+}
 
 .not-unique{
-  background-color: red;
+  position: relative;
+  overflow: visible;
+}
+
+.not-unique::before{
+  position: absolute;
+  content: 'Such SKU already existing';
+  text-shadow: 1px 1px 2px rgba(244, 30, 30, 0.47);
+  display: block;
+  font-size: 0.8rem;
+  width: 40%;
+  /* height: 30px; */
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
 }
 
 .visible{
@@ -167,9 +186,26 @@ form.create-product-form {
   gap: 5px;
 }
 
-input#sku:invalid {
-  background-color: rgba(255, 0, 0, 0.265);
-  color: white;
+@media screen and (max-width:1000px) { 
+
+
+  form.create-product-form{
+    row-gap: 15px;
+  }
+  .input-container{
+    width: 100%;
+  }
+  .dvd-form, .book-form, .dimensions-form{
+    width: 100%;
+  }
+  /* .not-unique{
+    position: inherit;
+  } */
+  .not-unique::before{
+    height: 20px;
+    top: 100%;
+    left: 22%;
+    transform: translateY(0%) ;
+    width: max-content;
+  }
 }
-
-

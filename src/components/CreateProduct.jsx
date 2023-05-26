@@ -1,9 +1,10 @@
-import axios from 'axios'
+// import axios from 'axios'
 import React, { useState, useRef } from 'react';
 import {useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
     const navigate = useNavigate();
+    // refs for handling whether to show or to hide them during select 
     const dimensionsForm = useRef();
     const bookForm = useRef();
     const dvdForm = useRef();
@@ -13,13 +14,13 @@ const CreateProduct = () => {
     const [input, setInput] = useState({type: 'dvd'});
     const [isSKUUnique, setIsSKUUnique] = useState(true)
     
-
+// adding to array key(name of input): 'value of input'
 const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInput(inputs => ({...inputs, [name]: value}))
 }
-
+// handling which select option is selected and showing it and hiding other form 
 const handleSelectChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -57,33 +58,34 @@ const handleSelectChange = (e) => {
             break;
     }
 }
-
+// converting entered dimensions into size object
 const handleDimensionsChange = () => {
     const converted = `${dimensionHeight.current.value}x${dimensionWidth.current.value}x${dimensionLength.current.value}`
     setInput(inputs => ({...inputs, size: `${converted}`}))
 }
-
-const handleSubmit = (e) => {
+// handle data which is submitted and then navigate to main page if sku is unique(axios is changed to detch deu 00webhost not working with axios.post)
+const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(input);
-
-    axios.post('https://productlistalexorno.000webhostapp.com/api/index.php', input)
-    .then(response => {
-        console.log(response)
-        if((typeof(response.data) === "string") && (response.data.slice(-5) === `'SKU'`)){
+    // axios.post('https://productlistalexorno.000webhostapp.com/api/index.php', input)
+    const submitData = await fetch('https://productlistalexorno.000webhostapp.com/api/index.php', {
+    method: 'post',
+    body: JSON.stringify(input),
+    });
+    // getting response from fetch
+    const data = await submitData.text();
+    
+        if(data.slice(-5) === `'SKU'`){
             setIsSKUUnique(false);
         }else{
             navigate('/');
         }
-        
-    });
 }
 
   return (
      <div className='create-product'>
         
 
-        <form className='create-product-form' id='product_form' onSubmit={(e) => handleSubmit(e)}>
+        <form className='create-product-form' id='product_form'  onSubmit={(e) => handleSubmit(e)}>
             <div className='top-nav'>
                 <h1>Product List</h1>
 
@@ -92,14 +94,13 @@ const handleSubmit = (e) => {
                     <button onClick={() => navigate('/')}>CANCEL</button>
                 </div>
             </div>
-
-            <div className='input-container'>
+        
+            <div className={!isSKUUnique ? `input-container not-unique` : 'input-container'}>
                 <label>Sku</label>
                 <input 
                 id='sku' 
-                maxLength='64' 
-                pattern='[A-Za-z0-9]+'
-                // onInvalid={() => alert('In field "SKU" you can only use letters and numbers')}
+                pattern='^[A-Za-z0-9]+$'
+                onInvalid={() => alert('In field "SKU" you can only use letters and numbers')}
                 required
                 className={!isSKUUnique ? `not-unique` : ''}
                 name='SKU' 
@@ -112,7 +113,7 @@ const handleSubmit = (e) => {
                 <input 
                 id='name'
                 required 
-                pattern='[A-Za-z0-9]+'
+                pattern='^[A-Za-z0-9 ]+$'
                 // onInvalid={() => alert('In field "Name" you can only use letters and numbers')}
                 name='name' 
                 placeholder='Name' 
@@ -123,8 +124,8 @@ const handleSubmit = (e) => {
                 <label>Price ($)</label>
                 <input id='price' 
                 required 
-                pattern='/^(\d+(\.\d*)?)|(\.\d+))$/'
-                // onInvalid={() => alert('In field "Price" you can only use numbers and dot')}
+                // pattern='/^(\d+(\.\d*)?)|(\.\d+))$/'
+                onInvalid={() => alert('In field "Price" you can only use numbers and dot')}
                 name='price' 
                 placeholder='Price' 
                 onChange={e => handleInputChange(e)}
@@ -151,11 +152,11 @@ const handleSubmit = (e) => {
                 <div className='dimensions-form' ref={dimensionsForm} >
                     <div className='input-container'>
                         <label>Height (CM)</label>
-                        <input name='height' placeholder='height' ref={dimensionHeight}/>
+                        <input name='height' placeholder='height' ref={dimensionHeight} onChange={handleDimensionsChange}/>
                     </div>
                     <div className='input-container'>
                         <label>Width (CM)</label>
-                        <input name='width' placeholder='width' ref={dimensionWidth}/>
+                        <input name='width' placeholder='width' ref={dimensionWidth} onChange={handleDimensionsChange}/>
                     </div>
                     <div className='input-container'>
                         <label>Length (CM)</label>
