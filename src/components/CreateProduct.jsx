@@ -144,7 +144,7 @@ const handleSubmit = async(e) => {
                 </select>
             </div>
                 <div className='dvd-form visible' ref={dvdForm}>
-                    <input required name='size' placeholder='Size in MB' onChange={e => handleInputChange(e)}/>
+                    <input required id='size' name='size' placeholder='Size in MB' onChange={e => handleInputChange(e)}/>
                     <p>Please, provide size of dvd in Megabytes. For example: 6.7MB, 9000MB </p>
                 </div>
 
