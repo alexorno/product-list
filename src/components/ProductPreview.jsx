@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ProductPreview = () => {
     const [products, setProducts] = useState([])
     const [checkedProducts, setCheckedProducts] = useState([])
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     // load products from mySQL on load
     useEffect(() => {
       axios.get('https://productlistalexorno.000webhostapp.com/api/index.php')
@@ -62,7 +63,9 @@ const ProductPreview = () => {
         <h1>Product List</h1>
 
         <div className='buttons'>
-            <button onClick={() => navigate('/add-product')}>ADD</button>
+            <Link to='/add-product' className='link-button'>
+                <button>ADD</button>
+            </Link>
             <button id='delete-product-btn' onClick={(e) => handleRemove(e)}>MASS DELETE</button>
         </div>
     </div>

@@ -60,13 +60,12 @@ padding: 0 15px;
   display: flex;
   column-gap: 20px;
   width: 200px;
-  align-items: flex-end;
   justify-content: space-between;
 }
 .top-nav .buttons button{
   height: min-content;
   padding: 5px 10px;
-  margin: 1%;
+  margin: 2px;
   background: white;
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   border: solid black 2px;

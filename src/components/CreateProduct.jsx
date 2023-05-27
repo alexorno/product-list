@@ -49,7 +49,7 @@ const handleSelectChange = (e) => {
         case 'book':
             bookForm.current.classList.add('visible');
             bookForm.current.children[0].setAttribute('required', 'required')
-            bookForm.current.children[0].setAttribute('id', 'size')
+            bookForm.current.children[0].setAttribute('id', 'weight')
             break;
         case 'furniture':
             dimensionsForm.current.classList.add('visible');
@@ -94,7 +94,7 @@ const handleSubmit = async(e) => {
                 <h1>Product List</h1>
 
                 <div className='buttons'>
-                    <button type='submit'>ADD</button>
+                    <button name='Save' type='submit'>Save</button>
                     <button onClick={() => navigate('/')}>CANCEL</button>
                 </div>
             </div>
@@ -102,7 +102,7 @@ const handleSubmit = async(e) => {
             <div className={!isSKUUnique ? `input-container not-unique` : 'input-container'}>
                 <label>Sku</label>
                 <input 
-                id='sku' 
+                id='sku'
                 pattern='^[A-Za-z0-9]+$'
                 onInvalid={() => alert('In field "SKU" you can only use letters and numbers')}
                 required
